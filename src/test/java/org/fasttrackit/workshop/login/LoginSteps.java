@@ -6,7 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
 import org.openqa.selenium.By;
@@ -17,12 +17,14 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import static org.hamcrest.core.Is.is;
+
 public class LoginSteps extends TestBaseNative {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
     LoginPage loginPage;
 
-    @Given("^I aaccess the login page$")
+    @Given("^I access the login page$")
     public void I_aaccess_the_login_page() throws Throwable {
 
         System.out.println("I aaccess the login page");
@@ -72,7 +74,7 @@ public class LoginSteps extends TestBaseNative {
         WebElement psswrd = driver.findElement(By.id("password"));
         psswrd.sendKeys("eu.pass");
 
-        Utils.sleep(4000);
+        Utils.sleep(2000);
     }
 
     @When("^I click on login button$")
@@ -82,7 +84,7 @@ public class LoginSteps extends TestBaseNative {
         WebElement button = driver.findElement(By.id("loginButton"));
         button.click();
 
-        Utils.sleep(4000);
+        Utils.sleep(2000);
     }
 
     @Then("^I except successful login message$")
@@ -93,30 +95,42 @@ public class LoginSteps extends TestBaseNative {
         //WebElement whatever = driver.findElement(By.className("navbar-brand"));
         //Assert.assertNotNull("Navigation bar doesn't exists on the page", whatever);
 
+        boolean isDisplayed = false;
         try {
-            WebElement logout = driver.findElement(By.linkText("Logoutxx"));
+            WebElement logout = driver.findElement(By.linkText("Logout"));
+            isDisplayed = logout.isDisplayed();
         }
         catch (Exception e){
             Assert.fail("Logout button was not found");
         }
 
-    }
+        Assert.assertTrue("Logout button is not displayed", isDisplayed);
 
-    @Given("^I access the login page$")
-    public void I_access_the_login_page() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
     }
 
     @And("^I insert invalid credentials$")
     public void I_insert_invalid_credentials() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        System.out.println("I_insert_invalid_credentials");
+
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys("eu@fast.com");
+
+        WebElement psswrd = driver.findElement(By.id("password"));
+        psswrd.sendKeys("eu.passxxx");
+
+        Utils.sleep(2000);
+
     }
 
     @Then("^I expect invalid credentials message$")
     public void I_expect_invalid_credentials_message() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+
+        System.out.println("I_except_error_message");
+
+        WebElement error = driver.findElement(By.className("error-msg"));
+        Assert.assertThat(error.getText(), is("Invalid user or password!"));
+
+        Utils.sleep(2000);
+
     }
 }

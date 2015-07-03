@@ -1,7 +1,7 @@
 Feature: Login
 
   Scenario: Login successfully
-    Given I aaccess the login page
+    Given I access the login page
     And I insert valid credentials
     When I click on login button
     Then I except successful login message
