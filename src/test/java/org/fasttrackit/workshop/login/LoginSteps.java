@@ -11,6 +11,7 @@ import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Robot;
@@ -22,7 +23,15 @@ import static org.hamcrest.core.Is.is;
 public class LoginSteps extends TestBaseNative {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
-    LoginPage loginPage = new LoginPage();
+    LoginPage loginPage;
+
+    public void initPage() {
+        loginPage = PageFactory.initElements(driver, LoginPage.class);
+    }
+
+    public LoginSteps() {
+        initPage();
+    }
 
     @Given("^I access the login page$")
     public void I_access_the_login_page() throws Throwable {
@@ -54,7 +63,7 @@ public class LoginSteps extends TestBaseNative {
     @When("^I click on login button$")
     public void I_click_on_login_button() throws Throwable {
         System.out.println("Click on login button");
-        loginPage.clickOnLoginButton(driver);
+        loginPage.clickOnLoginButton();
         Utils.sleep(100);
     }
 
