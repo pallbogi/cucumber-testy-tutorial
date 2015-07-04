@@ -24,6 +24,8 @@ import static org.hamcrest.core.Is.is;
 //public class LoginSteps extends TestBaseNative {
 public class LoginSteps extends TestBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
+    public static final String VALID_EMAIL = "eu@fast.com";
+    public static String VALID_PASSWORD = "eu.pass";
 
     //LoginPage loginPage;
 
@@ -47,7 +49,7 @@ public class LoginSteps extends TestBase {
     @And("^I insert valid credentials$")
     public void I_insert_valid_credentials() throws Throwable {
         System.out.println("Insert valid credentials");
-        I_enter_credentials("eu@fast.com", "eu.pass");
+        I_enter_credentials(VALID_EMAIL, VALID_PASSWORD);
     }
 
     @And("^I insert invalid credentials$")
