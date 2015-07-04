@@ -6,6 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.fasttrackit.util.TestBase;
 import org.junit.Assert;
 import org.fasttrackit.util.TestBaseNative;
 import org.fasttrackit.workshop.pagefactory.login.LoginPage;
@@ -20,18 +21,22 @@ import java.awt.event.KeyEvent;
 
 import static org.hamcrest.core.Is.is;
 
-public class LoginSteps extends TestBaseNative {
+//public class LoginSteps extends TestBaseNative {
+public class LoginSteps extends TestBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
-    LoginPage loginPage;
+    //LoginPage loginPage;
 
-    public void initPage() {
-        loginPage = PageFactory.initElements(driver, LoginPage.class);
-    }
+   // public void initPage() {
+   //     loginPage = PageFactory.initElements(driver, LoginPage.class);
+   // }
 
-    public LoginSteps() {
-        initPage();
-    }
+
+   // public LoginSteps() {
+   //     initPage();
+   // }
+
+    private LoginView loginPage = new LoginView();
 
     @Given("^I access the login page$")
     public void I_access_the_login_page() throws Throwable {
