@@ -1,3 +1,4 @@
+@screen
 Feature: Login
 
   Scenario: Login successfully
@@ -30,9 +31,9 @@ Feature: Login
       |             |        | Please enter your email!    |
       | aa@fast.com | asdsa  | Invalid user or password!   |
 
-    Scenario: Logout success
-      Given I successfully login
-      When I click on logout button
-      Then I should be logged out
+  Scenario: Logout success
+    Given I successfully login
+    When I click on logout button
+    Then I should be logged out
 
 

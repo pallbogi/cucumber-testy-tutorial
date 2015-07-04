@@ -22,7 +22,7 @@ import static org.hamcrest.core.Is.is;
 public class LoginSteps extends TestBaseNative {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginSteps.class);
 
-    LoginPage loginPage;
+    LoginPage loginPage = new LoginPage();
 
     @Given("^I access the login page$")
     public void I_access_the_login_page() throws Throwable {
@@ -48,16 +48,17 @@ public class LoginSteps extends TestBaseNative {
         email.sendKeys(emailValue);
         WebElement psswrd = driver.findElement(By.id("password"));
         psswrd.sendKeys(psswrdValue);
-        Utils.sleep(500);
+        Utils.sleep(100);
     }
 
     @When("^I click on login button$")
     public void I_click_on_login_button() throws Throwable {
         System.out.println("Click on login button");
-        WebElement button = driver.findElement(By.id("loginButton"));
-        button.click();
-        Utils.sleep(500);
+        loginPage.clickOnLoginButton(driver);
+        Utils.sleep(100);
     }
+
+
 
     @Then("^I except successful login message$")
     public void I_except_successful_login_message() throws Throwable {
@@ -86,7 +87,7 @@ public class LoginSteps extends TestBaseNative {
         System.out.println("I except error message");
         WebElement error = driver.findElement(By.className("error-msg"));
         Assert.assertThat(error.getText(), is(errorValue));
-        Utils.sleep(500);
+        Utils.sleep(100);
     }
 
     @Given("^I successfully login$")
@@ -99,13 +100,23 @@ public class LoginSteps extends TestBaseNative {
 
     @When("^I click on logout button$")
     public void I_click_on_logout_button() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        System.out.println("Click on logout button");
+        WebElement button = driver.findElement(By.linkText("Logout"));
+        button.click();
+        Utils.sleep(100);
     }
 
     @Then("^I should be logged out$")
     public void I_should_be_logged_out() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        System.out.println("Expect visible Login button");
+        boolean isDisplayed = false;
+        try {
+            WebElement login = driver.findElement(By.id("loginButton"));
+            isDisplayed = login.isDisplayed();
+        }
+        catch (Exception e){
+            Assert.fail("Login button was not found");
+        }
+        Assert.assertTrue("Login button is not displayed", isDisplayed);
     }
 }
