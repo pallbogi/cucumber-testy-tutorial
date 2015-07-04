@@ -53,10 +53,8 @@ public class LoginSteps extends TestBaseNative {
 
     @When("^I enter \"([^\"]*)\"/\"([^\"]*)\" credentials$")
     public void I_enter_credentials(String emailValue, String psswrdValue) throws Throwable {
-        WebElement email = driver.findElement(By.id("email"));
-        email.sendKeys(emailValue);
-        WebElement psswrd = driver.findElement(By.id("password"));
-        psswrd.sendKeys(psswrdValue);
+        System.out.println("Enter credentials");
+        loginPage.enterCredentials(emailValue, psswrdValue);
         Utils.sleep(100);
     }
 
@@ -94,8 +92,7 @@ public class LoginSteps extends TestBaseNative {
     @Then("^I expect \"([^\"]*)\" message$")
     public void I_expect_message(String errorValue) throws Throwable {
         System.out.println("I except error message");
-        WebElement error = driver.findElement(By.className("error-msg"));
-        Assert.assertThat(error.getText(), is(errorValue));
+        Assert.assertThat(loginPage.errorMessageText(), is(errorValue));
         Utils.sleep(100);
     }
 
