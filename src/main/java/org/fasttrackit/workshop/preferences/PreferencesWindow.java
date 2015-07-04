@@ -23,6 +23,8 @@ public class PreferencesWindow {
     private Button saveButton = new Button().setText("Save").setContainer(window);
     private Button closeButton = new Button().setText("Close").setContainer(window);
 
+    private WebLocator statusMessage = new WebLocator().setClasses("status-msg");
+
     public static void main(String[] args) {
         PreferencesWindow preferencesWindow = new PreferencesWindow();
         System.out.println(preferencesWindow.window.getPath());
@@ -48,7 +50,16 @@ public class PreferencesWindow {
     }
 
     public void save() {
-        saveButton.click();
+        saveButton.assertClick();
+        Utils.sleep(500);
+    }
+
+    public String statusMessageText() {
+        return statusMessage.getHtmlText();
+    }
+
+    public void close() {
+        closeButton.click();
         Utils.sleep(500);
     }
 }

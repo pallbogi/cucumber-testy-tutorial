@@ -7,6 +7,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.fasttrackit.util.TestBase;
 import org.fasttrackit.workshop.preferences.PreferencesWindow;
+import org.junit.Assert;
+
+import static org.hamcrest.core.Is.is;
 
 /**
  * Created by Boglarka_Pall on 7/4/2015.
@@ -17,7 +20,8 @@ public class PreferencesSteps extends TestBase {
 
     @Then("^I should see \"([^\"]*)\" message$")
     public void I_should_see_message(String message) throws Throwable {
-       // Assert.assertThat(loginPage.errorMessageText(), is(errorValue));
+        Assert.assertThat(preferencesWindow.statusMessageText(), is(message));
+        LoginSteps.VALID_PASSWORD = "alma";
         Utils.sleep(100);
     }
 
@@ -44,12 +48,17 @@ public class PreferencesSteps extends TestBase {
     @And("^I click on the Save button$")
     public void I_click_on_the_Save_button() throws Throwable {
         preferencesWindow.save();
+
     }
 
     @Then("^I can relogin with the new credentials$")
     public void I_can_relogin_with_the_new_credentials() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+
+    }
+
+    @And("^I close Preferences window$")
+    public void I_close_Preferences_window() throws Throwable {
+        preferencesWindow.close();
     }
 
 }
